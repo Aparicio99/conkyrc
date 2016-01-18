@@ -38,7 +38,8 @@ def transmission_list(host):
 
 	torrents_by_id = {}
 	for t in torrents:
-		torrents_by_id[t['id']] = t
+		if t['status'] != 0:
+			torrents_by_id[t['id']] = t
 
 	return torrents_by_id
 
@@ -99,5 +100,4 @@ if __name__ == '__main__':
 	else:
 		for id in torrents:
 			t = torrents[id]
-			if t['status'] != 0:
-				print_torrent(t)
+			print_torrent(t)
