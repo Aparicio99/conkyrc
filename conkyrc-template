@@ -158,7 +158,7 @@ ${color}Security updates  ${alignr} ${color0}${lines /var/tmp/glsa_status}
 ${template1 a}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${if_mpd_playing}${alignc}${color0}${mpd_title}
+${if_mpd_playing}${alignc}${color0}${mpd_title} 
 ${color0}${mpd_bar 4, 190}
 ${else}${alignc}${color0}Not playing
 ${endif}
