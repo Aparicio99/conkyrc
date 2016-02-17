@@ -18,7 +18,7 @@ minimum_size 190 1052
 maximum_width 190
 draw_borders no
 draw_shades no
-alignment top_right
+alignment top_left
 gap_x 5
 gap_y 24
 
@@ -136,7 +136,7 @@ ${template1 a}
 
 ${if_mpd_playing}${alignc}${color0}${mpd_title} 
 ${color0}${mpd_bar 4, 190}
-${else}${alignc}${color0}Not playing
+${else}${alignc}${color0}Not playing  
 ${endif}
 ${template1 g}
 
