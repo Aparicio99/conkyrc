@@ -16,7 +16,7 @@ conky.config = {
 	own_window_colour = "090909",
 	double_buffer = false,
 
-	minimum_height = 1052,
+	minimum_height = 1256,
 	minimum_width = 190,
 	maximum_width = 190,
 	draw_borders = false,
@@ -29,7 +29,7 @@ conky.config = {
 	draw_shades = false,
 	draw_outline = false,
 	use_xft = true,
-	font = "dejavu sans mono:size=7",
+	font = "dejavu sans mono:size={{config.font_size}}",
 	xftalpha = 1,
 
 	-- Display Settings
@@ -67,8 +67,8 @@ conky.config = {
 -- icons from https://icons8.com/
 
 conky.text = [[
-$alignc${color0}Linux $kernel $machine
-$alignc${color}Host ${color0}$nodename ${color}Uptime ${color0}$uptime
+${color0}Linux $kernel${alignr}$machine
+${color}Host ${color0}$nodename ${alignr}${color}Uptime ${color0}$uptime
 {#
 ################################## CPU ########################################
 #}

@@ -87,7 +87,7 @@ def storage_info():
             size       = m.group(3)
             mountpoint = m.group(4)
 
-            if removable:
+            if removable or mountpoint == '[SWAP]':
                 continue
 
             if re.match("sd[a-z]$", device):
@@ -132,6 +132,7 @@ if __name__ == "__main__":
 
     config = {
         'debug': False,
+        'font_size': 8,
         'swap': False,
         'torrents_host': None,
     }
