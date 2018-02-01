@@ -150,9 +150,12 @@ if __name__ == "__main__":
     if not network_info():
         config['interfaces'] = []
 
-    with open(DIR + '/config.py') as f:
-        code = compile(f.read(), "config.py", 'exec')
-        exec(code)
+    try:
+        with open(DIR + '/config.py') as f:
+            code = compile(f.read(), "config.py", 'exec')
+            exec(code)
+    except:
+        pass
 
     out = template.render(config=config)
     print(out)
