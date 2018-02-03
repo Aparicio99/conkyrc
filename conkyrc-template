@@ -59,14 +59,15 @@ conky.config = {
 	lua_load = "~/.conky/ping.lua",
 
 	template0 = [[${alignc}${color}-----------|--|--|------------]],
-	template1 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -5}]],
-	template2 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -9} \2${voffset 4}]],
+	template1 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -8}]],
+	template2 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -8} \2${voffset 1}]],
 
 };
 
 -- icons from https://icons8.com/
 
 conky.text = [[
+
 ${color0}Linux $kernel${alignr}$machine
 ${color}Host ${color0}$nodename ${alignr}${color}Uptime ${color0}$uptime
 {#
