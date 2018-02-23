@@ -153,8 +153,8 @@ ${color}Router ${alignr}${lua_parse router_ping_string} ${color1}${lua_graph rou
 ${template1 r}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${color}Last sync         ${alignr} ${color0}${execi 300 ~/scripts/lastsync days}
-${color}Last update       ${alignr} ${color0}${execi 300 ~/scripts/lastupdate days}
+${color}Last sync         ${alignr} ${color0}${execi 300 lastsync days}
+${color}Last update       ${alignr} ${color0}${execi 300 lastupdate days}
 ${color}Security updates  ${alignr} ${color0}${lines /var/tmp/glsa_status}
 {#
 ################################## Transmission ########################################
