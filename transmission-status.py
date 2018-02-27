@@ -9,11 +9,19 @@ UPLOADING   = 6
 COLOR1 = '${color}'
 COLOR2 = '${color0}'
 
+def error(msg):
+    print("Error: %s" % msg, file=sys.stderr)
+    sys.exit(1)
+
 def transmission_post(conn, headers={}):
 
 	params = '{"arguments":{"fields":["error","errorString","eta","id","isFinished","leftUntilDone","name","peersGettingFromUs","peersSendingToUs","rateDownload","rateUpload","sizeWhenDone","status","uploadRatio"]},"method":"torrent-get","tag":4}'
 
-	conn.request('POST', '/transmission/rpc/', params, headers)
+	try:
+		conn.request('POST', '/transmission/rpc/', params, headers)
+	except Exception as e:
+		error(e)
+
 	response = conn.getresponse()
 
 	return response.read().decode()
@@ -88,8 +96,7 @@ def print_torrent(t):
 if __name__ == '__main__':
 
 	if len(sys.argv) != 2:
-		print('Usage: transmission-status <host>')
-		exit()
+		error('Usage: transmission-status <host>')
 	else:
 		host = sys.argv[1]
 
