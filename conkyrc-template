@@ -59,8 +59,7 @@ conky.config = {
 	lua_load = "~/.conky/ping.lua",
 
 	template0 = [[${alignc}${color}-----------|--|--|------------]],
-	template1 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -8}]],
-	template2 = [[${offset 79}${color1}${font Conky Symbols:size=18}\1${font}${voffset -8} \2${voffset 1}]],
+	template1 = [[${offset 83}${color1}${font Conky Symbols:size=12}\1${font}${voffset -10}]],
 
 };
 
@@ -75,7 +74,7 @@ ${color}Host ${color0}$nodename ${alignr}${color}Uptime ${color0}$uptime
 #}
 {% if config.debug %}${template0}{% endif %}
 
-${template2 A {{config.cpu_model}}}
+${template1 A}
 {% if config.debug %}${template0}{% endif %}
 
 ${color}Running${alignr}${color0}$running_processes /$processes
@@ -94,7 +93,7 @@ ${color}proc              cpu%${alignr}time${color0}
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template2 D {{config.ram_size}}\ GiB}
+${template1 D}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${color}Used    ${color0}${mem}
@@ -157,6 +156,16 @@ ${color}Last sync         ${alignr} ${color0}${execi 300 lastsync days}
 ${color}Last update       ${alignr} ${color0}${execi 300 lastupdate days}
 ${color}Security updates  ${alignr} ${color0}${lines /var/tmp/glsa_status}
 {#
+################################## MPD ########################################
+#}
+{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
+
+${template1 a}
+{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
+
+${if_mpd_playing}${alignc}${color0}${mpd_title}
+${color0}${mpd_bar 4, 190}${else}${alignc}${color0}Not playing  ${endif}
+{#
 ################################## Transmission ########################################
 #}
 {% if config.torrents_host %}
@@ -167,19 +176,6 @@ ${template1 g}
 
 ${execpi 60 ~/.conky/transmission-status.py {{config.torrents_host}}}
 {% endif %}
-{#
-################################## MPD ########################################
-#}
-{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
-
-${template1 a}
-{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
-
-${if_mpd_playing}${alignc}${color0}${mpd_title} 
-${color0}${mpd_bar 4, 190}
-{#${font mono:size=6}${exec ~/scripts/karaoke}${font}#}
-${else}${alignc}${color0}Not playing  
-${endif}
 ]]
 {# vim: ft=jinja
 #}
