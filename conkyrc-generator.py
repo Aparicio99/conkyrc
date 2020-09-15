@@ -93,7 +93,12 @@ def storage_info():
             if re.match("sd[a-z]$", device):
                 config['disks'].append(device)
 
-            elif mountpoint and mountpoint not in config['filesystems']:
+            else:
+                m = re.match("(nvme[0-9]n[0-9])$", device)
+                if m:
+                    config['disks'].append(m[1])
+
+            if mountpoint and mountpoint not in config['filesystems']:
                 config['filesystems'].append(mountpoint)
 
     return len(config['disks']) > 1 and len(config['filesystems']) > 1
