@@ -4,7 +4,6 @@
   * **conkyrc-generator.py** - Script to create a config based on a template and properties of the running system
   * **conkyrc-template** - Config jinja2 template
   * **config-example.py** - Example config file to conkyrc-generator
-  * **Conky.ttf** - Font with symbols
   * **ping.lua** - Lua script to show ping delay value and graph
   * **transmission-status.py** - Script to show transmission torrents status
   * **conkyrc-example** - Example generated conkyrc

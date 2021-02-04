@@ -51,6 +51,7 @@ conky.config = {
 	default_color = "dddddd",
 	color0 = "ff8c00",
 	color1 = "202020",
+	color2 = "555555",
 
 	mpd_host = "127.0.0.1",
 
@@ -60,10 +61,8 @@ conky.config = {
 
 	template0 = [[${alignc}${color}-----------|--|--|------------]],
 	template1 = [[${offset 83}${color1}${font Conky Symbols:size=12}\1${font}${voffset -10}]],
-
+	template2 = [[${voffset -5}${alignc}${color2}${font sans mono:BOLD:size=7}\1${font}${voffset -10}]],
 };
-
--- icons from https://icons8.com/
 
 conky.text = [[
 
@@ -74,7 +73,7 @@ ${color}Host ${color0}$nodename ${alignr}${color}Uptime ${color0}$uptime
 #}
 {% if config.debug %}${template0}{% endif %}
 
-${template1 A}
+${template2 CPU}
 {% if config.debug %}${template0}{% endif %}
 
 ${color}Load${color0}$running_processes /$processes
@@ -93,7 +92,7 @@ ${color}proc              cpu%${alignr}time${color0}
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 D}
+${template2 RAM}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${color0}${mem} / ${memmax}
@@ -109,11 +108,22 @@ ${top_mem name 2}${top_mem mem_res 2}${alignr}${top_mem mem 2}
 ${top_mem name 3}${top_mem mem_res 3}${alignr}${top_mem mem 3}
 ${top_mem name 4}${top_mem mem_res 4}${alignr}${top_mem mem 4}
 {#
+################################## GPU ########################################
+#}
+{% if config.nvidia %}
+
+${template2 GPU}
+
+${color0}${nvidia gpufreqcur}MHz  ${nvidia gpuutil}%
+${color0}${nvidia memused}M / ${nvidia memmax}M
+${color}Fan ${color0}${nvidia fanlevel}%  ${nvidia temp}C ${alignr} ${voffset -27}${color1} ${nvidiagraph gpuutil 32, 90 ff8c00 ff8c00}
+{%endif %}
+{#
 ################################## Storage ########################################
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 E}
+${template2 Storage}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${color}fs          ${alignr}used%   ${alignr}used  ${alignr}total${color0}
@@ -135,7 +145,7 @@ ${top_io name 3}${top_io io_read 3}$alignr${top_io io_write 3}
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 S}
+${template2 Network}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${color}Connections ${color0}${tcp_portmon 1 65535 count}
@@ -149,7 +159,7 @@ ${color}Connections ${color0}${tcp_portmon 1 65535 count}
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 r}
+${template2 Portage}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${color}Last sync         ${alignr} ${color0}${execi 300 lastsync days}
@@ -160,7 +170,7 @@ ${color}Security updates  ${alignr} ${color0}${lines /var/tmp/glsa_status}
 #}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 a}
+${template2 Music}
 {% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${if_mpd_playing}${alignc}${color0}${mpd_title}
@@ -171,7 +181,7 @@ ${color0}${mpd_bar 4, 190}${else}${alignc}${color0}Not playing  ${endif}
 {% if config.torrents_host %}
 	{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
-${template1 g}
+${template2 Torrents}
 	{% if config.debug %}${alignc}${color}-----------|--|--|------------{% endif %}
 
 ${execpi 60 ~/.conky/transmission-status.py {{config.torrents_host}}}
