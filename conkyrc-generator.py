@@ -129,17 +129,19 @@ def network_info():
 
 if __name__ == "__main__":
 
-    DIR = os.environ['HOME'] + '/.conky'
+    DEFAULT_CONFIG = 'config.py'
 
-    env = Environment(loader=FileSystemLoader(DIR), trim_blocks=True, lstrip_blocks=True)
-
-    template = env.get_template('conkyrc-template')
+    if len(sys.argv) > 1:
+        config_file_path = sys.argv[1]
+    else:
+        config_file_path = None
 
     config = {
         'debug': False,
         'font_size': 8,
         'swap': False,
         'torrents_host': None,
+        'template': 'conkyrc-template'
     }
 
     if not cpu_info():
@@ -155,12 +157,40 @@ if __name__ == "__main__":
     if not network_info():
         config['interfaces'] = []
 
-    try:
-        with open(DIR + '/config.py') as f:
-            code = compile(f.read(), "config.py", 'exec')
-            exec(code)
-    except:
-        pass
+    if config_file_path:
+        if os.path.exists(config_file_path):
+            config_file_path = os.path.abspath(config_file_path)
+        else:
+            sys.exit('Could not access "%s"' % (config_file_path))
+
+    elif os.path.exists(DEFAULT_CONFIG):
+        config_file_path = os.path.abspath(DEFAULT_CONFIG)
+
+    else:
+        config_file_path = os.path.join(os.environ['HOME'], '.conky', DEFAULT_CONFIG)
+        if not os.path.exists(config_file_path):
+            sys.exit('Could not find the config file')
+
+    print('Config file: %s' % (config_file_path), file=sys.stderr)
+
+    with open(config_file_path) as f:
+        code = compile(f.read(), 'config.py', 'exec')
+        exec(code)
+
+    if os.path.exists(config['template']):
+            DIR = os.path.dirname(config['template'])
+            if not DIR:
+                DIR = os.getcwd()
+    else:
+        DIR = os.path.dirname(config_file_path)
+        if not os.path.exists(os.path.join(DIR, config['template'])):
+            sys.exit('Could not find the template file')
+
+    print('Template file: %s' % (os.path.join(DIR, config['template'])), file=sys.stderr)
+
+    env = Environment(loader=FileSystemLoader(DIR), trim_blocks=True, lstrip_blocks=True)
+
+    template = env.get_template(os.path.basename(config['template']))
 
     out = template.render(config=config)
     print(out)

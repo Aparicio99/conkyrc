@@ -7,3 +7,4 @@ config['filesystems'].append('/tmp')
 
 config['torrents_host'] = '127.0.0.1'
 
+config['template'] = 'conkyrc-template'

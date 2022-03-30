@@ -12,6 +12,10 @@
 
 Usage: `./conkyrc-generator.py > ~/.conkyrc`
 
+Or
+
+Usage: `./conkyrc-generator.py config.py > ~/.conkyrc`
+
 The main purpose of the script is the generate a final conkyrc config based on a jinja2 template.
 
 This approach has the following benefits compared with a static conkyrc:
